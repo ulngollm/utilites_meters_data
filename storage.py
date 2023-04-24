@@ -1,14 +1,4 @@
-from datetime import datetime
-
-class Measure:
-    TYPE_GAS = 1
-    TYPE_ELECTRO = 0
-    TYPE_WATER = 2
-
-    def __init__(self,  type: int, value: int = 0) -> None:
-        self.value = int(value)
-        self.type = type
-        self.date = datetime.now()
+from measurements import Measure
 
 
 class Storage:

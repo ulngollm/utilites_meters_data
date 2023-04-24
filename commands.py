@@ -2,6 +2,7 @@ from pyrogram import Client
 from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton, CallbackQuery
 from state import State
 from storage import Measure, Storage
+from measurements import Types
 
 state = State()
 storage = Storage()
@@ -38,10 +39,8 @@ class Handlers:
     def last(client: Client, message: Message):
         last = storage.get_last_measure()
         message.reply(
-            """
-                Ваши последние показания за %s:
-                %s
-            """ % (last.date.strftime('%d.%m.%Y'), last.value)
+            """Ваши последние показания за %s:\n%s\t%s""" 
+            % (last.date.strftime('%d.%m.%Y'), Types.get_label(last.type), last.value)
         )
 
 
@@ -76,7 +75,7 @@ class AddGasCommand:
     STATE_COMPLETE = 2
 
     def __init__(self) -> None:
-        self.measure = Measure(Measure.TYPE_GAS)
+        self.measure = Measure(Types.TYPE_GAS)
         self.state = self.STATE_DEFAULT
 
 
@@ -109,7 +108,7 @@ class AddWaterCommand:
     STATE_COMPLETE = 2
 
     def __init__(self) -> None:
-        self.measure = Measure(Measure.TYPE_WATER)
+        self.measure = Measure(Types.TYPE_WATER)
         self.state = self.STATE_DEFAULT
 
 
@@ -142,7 +141,7 @@ class AddElectroCommand:
     STATE_COMPLETE = 2
 
     def __init__(self) -> None:
-        self.measure = Measure(Measure.TYPE_ELECTRO)
+        self.measure = Measure(Types.TYPE_ELECTRO)
         self.state = self.STATE_DEFAULT
 
 
